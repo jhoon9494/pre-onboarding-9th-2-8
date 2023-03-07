@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getAllProducts } from '@/api/products';
-import { IDetailInfo } from '@/interface/product';
+import { IProductInfo } from '@/interface/product';
 import ProductCard from '@/components/ProductCard';
 import { Grid, Heading, Center, Box } from '@chakra-ui/react';
 
 const Main = () => {
-  const [productList, setProductList] = useState<IDetailInfo[]>([]);
+  const [productList, setProductList] = useState<IProductInfo[]>([]);
 
   const getProducts = useCallback(() => {
     getAllProducts()
