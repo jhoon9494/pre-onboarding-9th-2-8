@@ -4,10 +4,13 @@ export interface IProductInfo {
   mainImage: string;
   price: number;
   spaceCategory: string;
-}
-
-export interface IDetailInfo extends IProductInfo {
   description: string;
   maximumPurchases: number;
   registrationDate: string;
+}
+
+export interface IModal {
+  isOpen: boolean;
+  onClose: () => void;
+  product: IProductInfo;
 }

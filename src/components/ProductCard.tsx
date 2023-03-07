@@ -1,18 +1,16 @@
 import { IProductInfo } from '@/interface/product';
 import useCart from '@/lib/hooks/useCart';
-import { Image, Box, Badge, Button } from '@chakra-ui/react';
+import { Image, Box, Badge, Button, useDisclosure } from '@chakra-ui/react';
 import { MouseEvent } from 'react';
+import ProductModal from './ProductModal';
 
 const ProductCard = ({ product }: { product: IProductInfo }) => {
   const { dispatch } = useCart();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onReserve = (event: MouseEvent) => {
     event.stopPropagation();
     dispatch({ type: 'add', product });
-  };
-
-  const onClickModal = () => {
-    console.log('open modal');
   };
 
   return (
@@ -20,9 +18,12 @@ const ProductCard = ({ product }: { product: IProductInfo }) => {
       borderRadius="lg"
       overflow="hidden"
       _hover={{ boxShadow: '2px 2px 10px lightgray' }}
-      onClick={onClickModal}
+      onClick={onOpen}
     >
-      <Image src={product.mainImage} alt={product.idx.toString()} />
+      <Image
+        src={product.mainImage}
+        alt={`${product.name}-${product.idx.toString()}`}
+      />
 
       <Box p="6" pt="4">
         <Box display="flex" alignItems="baseline">
@@ -51,6 +52,7 @@ const ProductCard = ({ product }: { product: IProductInfo }) => {
           </Button>
         </Box>
       </Box>
+      <ProductModal isOpen={isOpen} onClose={onClose} product={product} />
     </Box>
   );
 };
