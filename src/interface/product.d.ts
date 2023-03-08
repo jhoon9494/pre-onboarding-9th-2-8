@@ -14,3 +14,9 @@ export interface IProductReducer {
   error: string | null;
   products: IProduct[];
 }
+
+export interface IFilter {
+  minPrice?: string;
+  maxPrice?: string;
+  currPlace?: string;
+}
