@@ -6,6 +6,7 @@ import {
   CardFooter,
   Center,
   Heading,
+  HStack,
   Image,
   Spinner,
   Text,
@@ -61,10 +62,13 @@ const Product = (productData: IProduct) => {
           }
         />
         <CardBody alignSelf="start">
-          <Badge colorScheme="purple" mb="2">
-            {productData.spaceCategory}
-          </Badge>
           <Heading size="md">{productData.name}</Heading>
+          <HStack mt="2">
+            <Text fontSize="sm">Product No.{productData.idx}</Text>
+            <Badge colorScheme="purple" mb="2">
+              {productData.spaceCategory}
+            </Badge>
+          </HStack>
           <Text py="2">{parseInt(productData.price).toLocaleString()}원</Text>
         </CardBody>
         <CardFooter gap="15px" alignSelf="start">
