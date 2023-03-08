@@ -1,6 +1,13 @@
 import { RootState, useAppDispatch, useAppSelector } from '@/store';
-import { getProducts } from '@/store/slices/productSlice';
-import { Input, Select, Button, VStack, HStack } from '@chakra-ui/react';
+import { getFilteredProducts, getProducts } from '@/store/slices/productSlice';
+import {
+  Input,
+  Select,
+  Button,
+  useToast,
+  VStack,
+  HStack,
+} from '@chakra-ui/react';
 import { FormEvent, useEffect, useState } from 'react';
 
 const Filter = () => {
@@ -8,6 +15,8 @@ const Filter = () => {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [currPlace, setCurrPlace] = useState('');
+
+  const toast = useToast();
   const { products } = useAppSelector((state: RootState) => state.products);
   const dispatch = useAppDispatch();
 
@@ -15,11 +24,30 @@ const Filter = () => {
     setPlaceList(
       Array.from(new Set(products.map((prod) => prod.spaceCategory))),
     );
-  }, [products]);
+
+    if (!products.length) {
+      toast({
+        title: `검색된 결과가 없습니다.`,
+        description: `조건을 변경하여 다시 검색해주세요.`,
+        position: 'top',
+        status: 'error',
+        isClosable: true,
+      });
+    }
+  }, [products, toast]);
 
   const handleFilter = (e: FormEvent) => {
     e.preventDefault();
-    console.log('필터링 요청');
+
+    if (parseInt(minPrice) > parseInt(maxPrice)) {
+      toast({
+        title: `금액을 확인해주세요`,
+        description: `최대 금액이 최소 금액보다 작습니다.`,
+        position: 'top',
+        status: 'error',
+        isClosable: true,
+      });
+    } else dispatch(getFilteredProducts({ minPrice, maxPrice, currPlace }));
   };
 
   const handleReset = () => {
