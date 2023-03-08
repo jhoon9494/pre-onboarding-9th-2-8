@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   Card,
   CardBody,
@@ -60,8 +61,11 @@ const Product = (productData: IProduct) => {
       />
       <Stack>
         <CardBody>
+          <Badge colorScheme="purple" mb="2">
+            {productData.spaceCategory}
+          </Badge>
           <Heading size="md">{productData.name}</Heading>
-          <Text py="2">{productData.description}</Text>
+          <Text py="2">{parseInt(productData.price).toLocaleString()}원</Text>
         </CardBody>
         <CardFooter gap="5px">
           <Button
