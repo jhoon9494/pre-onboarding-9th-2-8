@@ -1,4 +1,4 @@
-import { HStack, Center } from '@chakra-ui/react';
+import { VStack, Center, Heading } from '@chakra-ui/react';
 import Filter from '@/components/Filter';
 import ProductList from '@/components/ProductList';
 import ProductModal from '@/components/ProductModal';
@@ -6,11 +6,12 @@ import ProductModal from '@/components/ProductModal';
 const Main = () => {
   return (
     <>
-      <Center as="main" bg="tomato" w="100%">
-        <HStack as="section" bg="tomato" w="50%">
+      <Center as="main" w="100%">
+        <VStack as="section">
+          <Heading mt="10">상품 정보</Heading>
           <Filter />
           <ProductList />
-        </HStack>
+        </VStack>
       </Center>
       <ProductModal />
     </>

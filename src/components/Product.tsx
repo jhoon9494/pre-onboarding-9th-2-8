@@ -8,9 +8,9 @@ import {
   Heading,
   Image,
   Spinner,
-  Stack,
   Text,
   useToast,
+  VStack,
 } from '@chakra-ui/react';
 import { IProduct } from '@/interface/product';
 import { useAppDispatch, useAppSelector } from '@/store';
@@ -47,27 +47,27 @@ const Product = (productData: IProduct) => {
   };
 
   return (
-    <Card direction={{ base: 'column', sm: 'row' }} w="100%" variant="outline">
-      <Image
-        objectFit="cover"
-        maxW={{ base: '100%', sm: '200px' }}
-        src={productData.mainImage}
-        alt={productData.name}
-        fallback={
-          <Center w="40%" h="100%">
-            <Spinner />
-          </Center>
-        }
-      />
-      <Stack>
-        <CardBody>
+    <Card borderRadius="10" overflow="hidden">
+      <VStack h="100%">
+        <Image
+          objectFit="cover"
+          w="100%"
+          src={productData.mainImage}
+          alt={productData.name}
+          fallback={
+            <Center w="40%" h="100%">
+              <Spinner />
+            </Center>
+          }
+        />
+        <CardBody alignSelf="start">
           <Badge colorScheme="purple" mb="2">
             {productData.spaceCategory}
           </Badge>
           <Heading size="md">{productData.name}</Heading>
           <Text py="2">{parseInt(productData.price).toLocaleString()}원</Text>
         </CardBody>
-        <CardFooter gap="5px">
+        <CardFooter gap="15px" alignSelf="start">
           <Button
             variant="solid"
             colorScheme="blue"
@@ -83,7 +83,7 @@ const Product = (productData: IProduct) => {
             더 보 기
           </Button>
         </CardFooter>
-      </Stack>
+      </VStack>
     </Card>
   );
 };
