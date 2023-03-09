@@ -23,14 +23,15 @@ const Product = (productData: IProduct) => {
   const toast = useToast();
 
   const handleReservation = (product: IProduct) => {
-    const productLength =
-      cart.filter((item: IProduct) => item.idx === product.idx).length + 1;
+    const purchasesCount = cart[product.idx]?.count
+      ? cart[product.idx].count + 1
+      : 1;
 
-    if (productLength <= Number(product.maximumPurchases)) {
+    if (purchasesCount <= product.maximumPurchases) {
       dispatch(addToCart(product));
       toast({
         title: `${product.name} 1개 추가`,
-        description: `장바구니에 ${productLength}개 있습니다`,
+        description: `장바구니에 ${purchasesCount}개 있습니다`,
         position: 'top-right',
         status: 'success',
         isClosable: true,

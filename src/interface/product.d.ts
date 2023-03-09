@@ -14,3 +14,7 @@ export interface IProductReducer {
   error: string | null;
   products: IProduct[];
 }
+
+export interface ICart extends IProduct {
+  count: number;
+}

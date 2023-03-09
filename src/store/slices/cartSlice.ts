@@ -1,14 +1,28 @@
-import { IProduct } from '@/interface/product';
+import { ICart } from '@/interface/product';
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState: IProduct[] = [];
+const initialState: { [key: number]: ICart } = {};
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      return [...state, action.payload];
+      const key: number = action.payload.idx;
+      if (state[key]) {
+        return {
+          ...state,
+          [key]: {
+            ...action.payload,
+            count: state[key].count + 1,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          [key]: { ...action.payload, count: 1 },
+        };
+      }
     },
   },
 });
