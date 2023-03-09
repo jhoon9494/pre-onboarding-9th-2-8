@@ -24,9 +24,19 @@ const cartSlice = createSlice({
         };
       }
     },
+    removeToCart: (state, action) => {
+      const key: number = action.payload.idx;
+      return {
+        ...state,
+        [key]: {
+          ...action.payload,
+          count: state[key].count - 1,
+        },
+      };
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeToCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

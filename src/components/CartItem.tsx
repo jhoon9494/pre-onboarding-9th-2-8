@@ -1,4 +1,6 @@
 import { ICart } from '@/interface/product';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { addToCart, removeToCart } from '@/store/slices/cartSlice';
 import {
   Card,
   CardBody,
@@ -14,9 +16,37 @@ import {
   Box,
   VStack,
   Button,
+  useToast,
 } from '@chakra-ui/react';
 
 const CartItem = (productData: ICart) => {
+  const dispatch = useAppDispatch();
+  const { cart } = useAppSelector((state) => state);
+  const toast = useToast();
+  const purchasesCount = cart[productData.idx]?.count
+    ? cart[productData.idx].count
+    : 0;
+
+  const increaseProd = () => {
+    if (purchasesCount < productData.maximumPurchases) {
+      dispatch(addToCart(productData));
+    } else {
+      toast({
+        title: `${productData.name} 구매 개수 초과`,
+        description: `인 당 ${productData.maximumPurchases}개만 구매하실 수 있습니다.`,
+        position: 'top-right',
+        status: 'error',
+        isClosable: true,
+      });
+    }
+  };
+
+  const decreaseProd = () => {
+    if (purchasesCount > 1) {
+      dispatch(removeToCart(productData));
+    }
+  };
+
   return (
     <Card
       direction={{ base: 'column', sm: 'row' }}
@@ -52,9 +82,13 @@ const CartItem = (productData: ICart) => {
               <Text fontSize="sm">등록번호 : {productData.idx}</Text>
             </VStack>
             <HStack>
-              <Button borderRadius="full">-</Button>
+              <Button borderRadius="full" onClick={decreaseProd}>
+                -
+              </Button>
               <Text>{productData.count}</Text>
-              <Button borderRadius="full">+</Button>
+              <Button borderRadius="full" onClick={increaseProd}>
+                +
+              </Button>
             </HStack>
           </HStack>
         </CardFooter>
