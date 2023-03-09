@@ -34,9 +34,15 @@ const cartSlice = createSlice({
         },
       };
     },
+    deletoToCart: (state, action) => {
+      action.payload.forEach((product: ICart) => {
+        const key: number = product.idx;
+        delete state[key];
+      });
+    },
   },
 });
 
-export const { addToCart, removeToCart } = cartSlice.actions;
+export const { addToCart, removeToCart, deletoToCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

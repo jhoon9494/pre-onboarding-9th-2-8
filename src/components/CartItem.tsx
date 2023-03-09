@@ -1,10 +1,10 @@
-import { ICart } from '@/interface/product';
+import { ChangeEvent } from 'react';
+import { ICartProps } from '@/interface/props';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { addToCart, removeToCart } from '@/store/slices/cartSlice';
 import {
   Card,
   CardBody,
-  CardFooter,
   Center,
   Heading,
   Image,
@@ -18,10 +18,11 @@ import {
   Button,
   useToast,
   Spacer,
+  Checkbox,
 } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
-const CartItem = (productData: ICart) => {
+const CartItem = ({ checkList, setCheckList, ...productData }: ICartProps) => {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state);
   const toast = useToast();
@@ -49,6 +50,19 @@ const CartItem = (productData: ICart) => {
     }
   };
 
+  const onCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    if (checked) {
+      setCheckList((prev) => {
+        return [...prev, productData];
+      });
+    } else {
+      setCheckList((prev) => {
+        return prev.filter((prod) => prod.idx !== productData.idx);
+      });
+    }
+  };
+
   return (
     <Card
       direction={{ base: 'column', sm: 'row' }}
@@ -57,10 +71,23 @@ const CartItem = (productData: ICart) => {
       _hover={{ boxShadow: '2px 2px 10px lightgray' }}
       borderRadius="10"
       overflow="hidden"
+      position="relative"
     >
+      <Checkbox
+        type="checkbox"
+        colorScheme="green"
+        position="absolute"
+        top="3"
+        left="3"
+        size="lg"
+        bg="white"
+        isChecked={checkList.some((list) => list.idx === productData.idx)}
+        onChange={(e) => onCheck(e)}
+      />
       <Image
         objectFit="cover"
         maxW={{ base: '100%', sm: '200px' }}
+        p="3"
         src={productData.mainImage}
         alt={productData.name}
         fallback={
