@@ -6,9 +6,11 @@ import { deletoToCart } from '@/store/slices/cartSlice';
 import {
   Box,
   Button,
+  Center,
   Checkbox,
   Heading,
   HStack,
+  Text,
   VStack,
 } from '@chakra-ui/react';
 import { ChangeEvent, useState } from 'react';
@@ -33,7 +35,7 @@ const Reservations = () => {
   };
 
   return (
-    <VStack as="section" p={4} gap={2}>
+    <VStack as="section" p={4} gap={2} pb="90px">
       <Heading mb={4}>장바구니</Heading>
       {cartList.length ? (
         <>
@@ -65,7 +67,32 @@ const Reservations = () => {
               />
             );
           })}
-          <Box>총 금액 :{totalPrice.toLocaleString()}원</Box>
+          <HStack
+            position="fixed"
+            bottom="0"
+            borderTop="1px solid lightgray"
+            bg="white"
+            h="80px"
+            w="100%"
+            maxW="700px"
+            justifyContent="space-between"
+            pl="10"
+          >
+            <Text fontSize="2xl" fontWeight="400">
+              총 금액 : <strong>{totalPrice.toLocaleString()}</strong>원
+            </Text>
+            <Box bg="blue.500" h="100%" w="23%" borderTop="1px solid lightgray">
+              <Center
+                h="100%"
+                fontSize="xl"
+                fontWeight="bolder"
+                color="white"
+                cursor="not-allowed"
+              >
+                결제 하기
+              </Center>
+            </Box>
+          </HStack>
         </>
       ) : (
         <div>담은 상품이 없습니다.</div>

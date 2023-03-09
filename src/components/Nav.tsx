@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const Nav = () => {
   const navigate = useNavigate();
   return (
-    <HStack gap="10" alignItems="flex-start">
+    <HStack gap="10">
       <Box
         onClick={() => navigate('/main')}
         cursor="pointer"

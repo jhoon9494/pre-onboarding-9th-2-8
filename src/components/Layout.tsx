@@ -4,7 +4,7 @@ import { Center, VStack } from '@chakra-ui/react';
 
 const Layout = () => {
   return (
-    <VStack my="10">
+    <VStack pt="10">
       <Nav />
       <Center>
         <Outlet />
