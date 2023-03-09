@@ -1,8 +1,16 @@
 import CartItem from '@/components/CartItem';
 import { ICart } from '@/interface/product';
+import { getTotalPrice } from '@/lib/utils/cartHelpers';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { deletoToCart } from '@/store/slices/cartSlice';
-import { Button, Checkbox, Heading, HStack, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Heading,
+  HStack,
+  VStack,
+} from '@chakra-ui/react';
 import { ChangeEvent, useState } from 'react';
 
 const Reservations = () => {
@@ -10,6 +18,7 @@ const Reservations = () => {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state);
   const cartList = Object.values(cart);
+  const totalPrice = getTotalPrice(cartList);
 
   const onAllCheck = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -56,6 +65,7 @@ const Reservations = () => {
               />
             );
           })}
+          <Box>총 금액 :{totalPrice.toLocaleString()}원</Box>
         </>
       ) : (
         <div>담은 상품이 없습니다.</div>
