@@ -67,7 +67,7 @@ const Product = (productData: IProduct) => {
           </Center>
         }
       />
-      <Stack>
+      <Stack flex="1">
         <CardBody>
           <Heading size="md">{productData.name}</Heading>
           <Stack direction="row">

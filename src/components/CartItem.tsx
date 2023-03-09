@@ -17,7 +17,9 @@ import {
   VStack,
   Button,
   useToast,
+  Spacer,
 } from '@chakra-ui/react';
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 const CartItem = (productData: ICart) => {
   const dispatch = useAppDispatch();
@@ -67,7 +69,7 @@ const CartItem = (productData: ICart) => {
           </Center>
         }
       />
-      <Stack>
+      <Stack flex="1">
         <CardBody>
           <Badge colorScheme="purple" mb="3">
             {productData.spaceCategory}
@@ -75,23 +77,23 @@ const CartItem = (productData: ICart) => {
           <Heading size="md">{productData.name}</Heading>
           <Text py="2">{productData.description}</Text>
         </CardBody>
-        <CardFooter>
+        <HStack p="20px">
+          <VStack alignItems="start" flex="1">
+            <Box fontSize="2xl">₩{productData.price.toLocaleString()}</Box>
+            <Text fontSize="sm">등록번호 : {productData.idx}</Text>
+          </VStack>
           <HStack>
-            <VStack alignItems="start" flex="1">
-              <Box fontSize="2xl">₩{productData.price.toLocaleString()}</Box>
-              <Text fontSize="sm">등록번호 : {productData.idx}</Text>
-            </VStack>
-            <HStack>
-              <Button borderRadius="full" onClick={decreaseProd}>
-                -
-              </Button>
-              <Text>{productData.count}</Text>
-              <Button borderRadius="full" onClick={increaseProd}>
-                +
-              </Button>
-            </HStack>
+            <Button borderRadius="full" onClick={decreaseProd} w="5">
+              <MinusIcon />
+            </Button>
+            <Spacer />
+            <Text>{productData.count}</Text>
+            <Spacer />
+            <Button borderRadius="full" onClick={increaseProd} w="5">
+              <AddIcon />
+            </Button>
           </HStack>
-        </CardFooter>
+        </HStack>
       </Stack>
     </Card>
   );
