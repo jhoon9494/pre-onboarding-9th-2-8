@@ -63,15 +63,15 @@ const ProductList = () => {
   });
 
   return (
-    <VStack as="section" bg="blue.100" w="75%" minW="500px" p={4}>
+    <VStack as="section" w="100%" minW="500px" p={4}>
       <Heading>상품 정보</Heading>
-      <VStack as="section" bg="blue.100" w="100%" p={4}>
+      <VStack as="section" w="100%" p={4}>
         <RangeSlider defaultValue={[0, 100]} onChange={onSlidePrice}>
           <RangeSliderTrack>
             <RangeSliderFilledTrack />
           </RangeSliderTrack>
-          <RangeSliderThumb index={0} />
-          <RangeSliderThumb index={1} />
+          <RangeSliderThumb index={0} backgroundColor="lightblue" />
+          <RangeSliderThumb index={1} backgroundColor="lightblue" />
         </RangeSlider>
         <Text>
           {currentValues[0]} {currentValues[1]}

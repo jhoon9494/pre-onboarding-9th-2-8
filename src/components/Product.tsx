@@ -47,7 +47,14 @@ const Product = (productData: IProduct) => {
   };
 
   return (
-    <Card direction={{ base: 'column', sm: 'row' }} w="100%" variant="outline">
+    <Card
+      direction={{ base: 'column', sm: 'row' }}
+      w="100%"
+      boxShadow="none"
+      _hover={{ boxShadow: '2px 2px 10px lightgray' }}
+      borderRadius="10"
+      overflow="hidden"
+    >
       <Image
         objectFit="cover"
         maxW={{ base: '100%', sm: '200px' }}
